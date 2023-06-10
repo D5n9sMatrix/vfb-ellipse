@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/denis/vfb-net/vfb-ellipse/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/vfb-ellipse.dir/vfb-ellipse.cpp.o -c /home/denis/vfb-net/vfb-ellipse/vfb-ellipse.cpp",
+  "file": "/home/denis/vfb-net/vfb-ellipse/vfb-ellipse.cpp"
+}
+]

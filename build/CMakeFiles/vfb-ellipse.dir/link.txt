@@ -1,0 +1,2 @@
+/usr/bin/ar qc libvfb-ellipse.a CMakeFiles/vfb-ellipse.dir/vfb-ellipse.cpp.o
+/usr/bin/ranlib libvfb-ellipse.a

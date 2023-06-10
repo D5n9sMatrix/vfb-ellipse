@@ -1,0 +1,100 @@
+typedef   signed char       int8;
+typedef unsigned char      uint8;
+typedef   signed short      int16;
+typedef unsigned short     uint16;
+typedef   signed int        int32;
+typedef unsigned int       uint32;
+typedef   signed long long  int64;
+typedef unsigned long long uint64;
+typedef struct { char *data; int64 len; int64 size; } FBSTRING;
+typedef int8 boolean;
+struct $16__FB_ARRAYDIMTB$ {
+	int64 ELEMENTS;
+	int64 LBOUND;
+	int64 UBOUND;
+};
+#define __FB_STATIC_ASSERT( expr ) extern int __$fb_structsizecheck[(expr) ? 1 : -1]
+__FB_STATIC_ASSERT( sizeof( struct $16__FB_ARRAYDIMTB$ ) == 24 );
+struct $8FBARRAY1IhE {
+	uint8* DATA;
+	uint8* PTR;
+	int64 SIZE;
+	int64 ELEMENT_LEN;
+	int64 DIMENSIONS;
+	int64 FLAGS;
+	struct $16__FB_ARRAYDIMTB$ DIMTB[1];
+};
+__FB_STATIC_ASSERT( sizeof( struct $8FBARRAY1IhE ) == 72 );
+struct $7FBARRAYIvE {
+	void* DATA;
+	void* PTR;
+	int64 SIZE;
+	int64 ELEMENT_LEN;
+	int64 DIMENSIONS;
+	int64 FLAGS;
+	struct $16__FB_ARRAYDIMTB$ DIMTB[8];
+};
+__FB_STATIC_ASSERT( sizeof( struct $7FBARRAYIvE ) == 240 );
+struct $7FBARRAYIKvE {
+	void* DATA;
+	void* PTR;
+	int64 SIZE;
+	int64 ELEMENT_LEN;
+	int64 DIMENSIONS;
+	int64 FLAGS;
+	struct $16__FB_ARRAYDIMTB$ DIMTB[8];
+};
+__FB_STATIC_ASSERT( sizeof( struct $7FBARRAYIKvE ) == 240 );
+int32 fb_ArrayRedimEx( struct $7FBARRAYIvE*, uint64, int32, int32, uint64, ... );
+int32 fb_ArrayErase( struct $7FBARRAYIvE* );
+int32 fb_FileOpen( FBSTRING*, uint32, uint32, uint32, int32, int32 );
+int32 fb_FileCloseAll( void );
+int32 fb_FilePutArrayLarge( int32, int64, struct $7FBARRAYIKvE* );
+int32 fb_FileGetArrayLarge( int32, int64, struct $7FBARRAYIvE* );
+int32 fb_FileFree( void );
+int64 fb_FileSize( int32 );
+void fb_PrintString( int32, FBSTRING*, int32 );
+FBSTRING* fb_StrAllocTempDescZEx( uint8*, int64 );
+void fb_Init( int32, uint8**, int32 );
+void fb_End( int32 );
+void fb_Sleep( int32 );
+
+int32 main( int32 __FB_ARGC__$0, char** __FB_ARGV__$0 )
+{
+	int32 fb$result$0;
+	__builtin_memset( &fb$result$0, 0, 4ll );
+	fb_Init( __FB_ARGC__$0, (uint8**)__FB_ARGV__$0, 0 );
+	label$0:;
+	int32 O$0;
+	__builtin_memset( &O$0, 0, 4ll );
+	int32 vr$2 = fb_FileFree(  );
+	O$0 = vr$2;
+	FBSTRING* vr$3 = fb_StrAllocTempDescZEx( (uint8*)"data.raw", 8ll );
+	fb_FileOpen( (FBSTRING*)vr$3, 0u, 1u, 0u, O$0, 0 );
+	struct $8FBARRAY1IhE FILE_CHAR$0;
+	*(uint8**)&FILE_CHAR$0 = (uint8*)0ull;
+	*(uint8**)((uint8*)&FILE_CHAR$0 + 8ll) = (uint8*)0ull;
+	*(int64*)((uint8*)&FILE_CHAR$0 + 16ll) = 0ll;
+	*(int64*)((uint8*)&FILE_CHAR$0 + 24ll) = 1ll;
+	*(int64*)((uint8*)&FILE_CHAR$0 + 32ll) = 1ll;
+	*(int64*)((uint8*)&FILE_CHAR$0 + 40ll) = 17ll;
+	__builtin_memset( (void*)((uint8*)&FILE_CHAR$0 + 48ll), 0, 24ll );
+	int64 vr$5 = fb_FileSize( O$0 );
+	fb_ArrayRedimEx( (struct $7FBARRAYIvE*)&FILE_CHAR$0, 1ull, -1, 0, 1ull, 0ll, vr$5 + -1ll );
+	fb_FileGetArrayLarge( O$0, 0ll, (struct $7FBARRAYIvE*)&FILE_CHAR$0 );
+	fb_FileCloseAll(  );
+	int32 vr$9 = fb_FileFree(  );
+	O$0 = vr$9;
+	FBSTRING* vr$10 = fb_StrAllocTempDescZEx( (uint8*)"data.out", 8ll );
+	fb_FileOpen( (FBSTRING*)vr$10, 0u, 2u, 0u, O$0, 0 );
+	fb_FilePutArrayLarge( O$0, 0ll, (struct $7FBARRAYIKvE*)&FILE_CHAR$0 );
+	fb_FileCloseAll(  );
+	FBSTRING* vr$12 = fb_StrAllocTempDescZEx( (uint8*)"Copied file \x22" "data.raw\x22 to file \x22" "data.out\x22", 41ll );
+	fb_PrintString( 0, (FBSTRING*)vr$12, 1 );
+	fb_Sleep( -1 );
+	fb_End( 0 );
+	fb_ArrayErase( (struct $7FBARRAYIvE*)&FILE_CHAR$0 );
+	label$1:;
+	fb_End( 0 );
+	return fb$result$0;
+}
